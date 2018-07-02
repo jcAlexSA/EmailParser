@@ -6,7 +6,7 @@ using Core.Models;
 namespace EmailParsersFactory.Managers
 {
     /// <summary>
-    /// Articles manager.
+    /// Articles manager to working with DB.
     /// </summary>
     /// <seealso cref="EmailParsersFactory.Managers.ManagerBase" />
     /// <seealso cref="Core.Interfaces.Managers.IArticlesManager" />
@@ -29,7 +29,7 @@ namespace EmailParsersFactory.Managers
         }
 
         /// <summary>
-        /// Adds the specified article.
+        /// Adds the specified article to repository.
         /// </summary>
         /// <param name="article">The article.</param>
         public void Add(Article article)

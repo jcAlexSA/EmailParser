@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Autofac;
+using Autofac.Features.Metadata;
 using Core.Interfaces;
 using Core.Interfaces.DataContext;
 using Core.Interfaces.Managers;
@@ -7,7 +8,9 @@ using Core.Interfaces.Repositories;
 using Core.Interfaces.UnitOfWork;
 using DataAccessLayer.Repositories;
 using EmailParser.Managers.Parsers;
+using EmailParsersFactory.Infrastructure;
 using EmailParsersFactory.Managers;
+using EmailParsersFactory.Tasks;
 
 namespace EmailReader.Infrastructure
 {
@@ -39,8 +42,16 @@ namespace EmailReader.Infrastructure
                                 .AsImplementedInterfaces()
                                 .InstancePerLifetimeScope();
 
+            // Managers.
             builder.RegisterType<ArticlesManager>().As<IArticlesManager>();
 
+            var appConfig = new ApplicationConfiguration();
+
+            // Tasks.
+            builder.RegisterType<EmailDownloadTask>().Named<ITask>("download");
+            builder.RegisterType<EmailParserTask>().Named<ITask>("parse");
+
+            // Parsers.
             builder.RegisterType<CnbcParser>().Named<IParser>("breakingnews@response.cnbc.com");
             builder.RegisterType<TechTodayParser>().Named<IParser>("newsletters@email.lifewire.com");
 

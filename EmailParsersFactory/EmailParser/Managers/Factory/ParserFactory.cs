@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System.Text.RegularExpressions;
+using Autofac;
 using Core.Interfaces;
 using Core.Models.Dtos;
 
@@ -36,15 +37,18 @@ namespace EmailParser.Managers.Factory
         /// <returns>The key for autofac.</returns>
         private string GetKey(EmailDto emailDto)
         {
-            int leftBracket = 0, rightBraket = 0;
-            leftBracket = emailDto.From.LastIndexOf("<");
-            rightBraket = emailDto.From.LastIndexOf(">");
-            if (rightBraket <= 0)
+            string pattern = @"(?("")("".+?(?<!\\)\""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`{}|~\w])*)(?<=[0-9a-z])@))(?([)([(\d{1,3}.){3}\d{1,3}])|(([0-9a-z][-0-9a-z]*[0-9a-z]*.)+[a-z0-9][-a-z0-9]{0,22}[a-z0-9]))";
+            Regex regex = new Regex(pattern);
+
+            if(regex.IsMatch(emailDto.From))
+            {
+                var result = regex.Match(emailDto.From);
+                return result.Value.ToString();
+            }
+            else
             {
                 return string.Empty;
             }
-
-            return emailDto.From.Substring(++leftBracket, rightBraket - leftBracket);
         }
     }
 }

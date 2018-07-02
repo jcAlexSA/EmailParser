@@ -60,5 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Articles.sql" />
+    <Build Include="Loggers.sql" />
   </ItemGroup>
 </Project>

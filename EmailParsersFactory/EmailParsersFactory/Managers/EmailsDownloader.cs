@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using Core.Models.Dtos;
+using EmailParsersFactory.Infrastructure;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Search;
@@ -23,9 +25,9 @@ namespace EmailParsersFactory.Managers
         /// Initializes a new instance of the <see cref="EmailsDownloader"/> class.
         /// </summary>
         /// <param name="credential">The credential.</param>
-        public EmailsDownloader(NetworkCredential credential)
+        public EmailsDownloader(string login, string password)
         {
-            this.credential = credential;
+            this.credential = new NetworkCredential(login, password);
         }
 
         /// <summary>
@@ -36,11 +38,10 @@ namespace EmailParsersFactory.Managers
         {
             using (var client = new ImapClient())
             {
-                NetworkCredential credentials = this.credential;
                 Uri uri = new Uri("imaps://imap.gmail.com");
 
                 client.Connect(uri);
-                client.Authenticate(credentials);
+                client.Authenticate(this.credential);
 
                 IMailFolder folder = client.GetFolder("[Gmail]/All Mail");
                 folder.Open(FolderAccess.ReadWrite);
@@ -84,29 +85,24 @@ namespace EmailParsersFactory.Managers
                             false);
                     }
 
-                    WriteMessageToTheFile(content, id, string.Concat(directoryToDownload, emailFolder));
+                    using (StreamWriter sw = new StreamWriter(
+                                File.Create(string.Concat(
+                                    directoryToDownload, emailFolder, GetValidFileName(id, content.Subject)))))
+                    {
+                        var emailDto = new EmailDto
+                        {
+                            Subject = content.Subject,
+                            From = content.From.ToString(),
+                            MessageId = (int)id.Id,
+                            Body = content.HtmlBody
+                        };
+
+                        EmailDtoFileWorker.WriteEmailDto(sw, emailDto);
+                    }
                 }
 
                 client.Disconnect(true);
                 Console.WriteLine("Message Count: {0} ", commonId.Count);
-            }
-        }
-
-        /// <summary>
-        /// Writes the message to the file.
-        /// </summary>
-        /// <param name="content">Content of the message.</param>
-        /// <param name="id">Unique id of the message.</param>
-        /// <param name="directoryToWrite">Directory to write the message.</param>
-        private static void WriteMessageToTheFile(MimeKit.MimeMessage content, UniqueId id, string directoryToWrite)
-        {
-            using (StreamWriter sw = new StreamWriter(
-                        File.Create(string.Concat(directoryToWrite, GetValidFileName(id, content.Subject)))))
-            {
-                sw.WriteLine(content.Subject);
-                sw.WriteLine(content.From);
-                sw.WriteLine(id);
-                sw.WriteLine(content.HtmlBody);
             }
         }
 

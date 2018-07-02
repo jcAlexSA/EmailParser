@@ -82,7 +82,7 @@ namespace EmailParser.Tests
             ArticleDto articleDtoTemplate = new ArticleDto
             {
                 Title = "Dow falls more than 200 points on lingering trade worries, heads for 8-day losing streak",
-                Link = "http://link.cnbc.com/click/13644512.34974/aHR0cHM6Ly93d3cuY25iYy5jb20vMjAxOC8wNi8yMS91cy1zdG9jay1mdXR1cmVzLWRhdGEtdHJhZGUtb2lsLWFuZC1wb2xpdGljcy1pbi1mb2N1cy5odG1sP19fc291cmNlPW5ld3NsZXR0ZXIlN0NicmVha2luZ25ld3M/5b2bb23d91d15c45dd5a3c77Ba564bd6b",
+                Link = "http://link.cnbc.com/click/13644512.34974/aHR0cHM6Ly93d3cuY25iYy5jb20vMjAxOC8wNi8yMS91cy1zdG9jay1mdXR1cmVzLWRhdGEtdHJhZGUtb2lsLWFuZC1wb2xpdGljcy1pbi1mb2N1cy5odG1sP19fc291cmNlPW5ld3NsZXR0ZXIlN0NicmVha2luZ25ld3M/5b2bb23d91d15c45dd5a3c77Ba564bd6b"
             };
 
             EmailDto emailDto = this.GetDtoFromTestFiles(fileName);
