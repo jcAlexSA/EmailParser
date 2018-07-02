@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[Articles]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    [Title] VARCHAR(200) NOT NULL,
+    [Link] VARCHAR(1000) NOT NULL,
+    [Date] DATETIME NOT NULL,
+    [EmailId] INT NULL
+)

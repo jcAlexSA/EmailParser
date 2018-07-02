@@ -1,0 +1,23 @@
+USE MASTER;
+GO
+CREATE DATABASE NewsDB;
+GO
+
+USE NewsDB
+GO
+
+CREATE TABLE [Articles](
+	Id INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	ImapId INT NOT NULL,
+	Title VARCHAR(50),
+	Link VARCHAR(50),
+	[Body] VARCHAR(MAX),
+	[Date] DateTime
+);
+
+
+--	Email VARCHAR(50) NOT NULL,
+--	[Password] VARCHAR(50) NOT NULL,
+--	Age INT NOT NULL,
+--	DateOfRegistration DATETIME NOT NULL,
+--	CONSTRAINT email_unique UNIQUE (Email)

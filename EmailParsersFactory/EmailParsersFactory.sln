@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailReader", "EmailParsersFactory\EmailReader.csproj", "{4FC17C26-28B9-453F-AEB9-758BBFE2EC7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailParser", "EmailParser\EmailParser.csproj", "{E9978BA6-D3D0-448B-9D64-857ADBB8E899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailParser.Tests", "EmailParser.Tests\EmailParser.Tests.csproj", "{29614202-47D9-46BE-A627-FE68904E36B2}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NewsDbProject", "Database1\NewsDbProject.sqlproj", "{B96C50F5-7C48-4658-B775-C5D8431C9045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{9E8A5304-4053-4BAF-AC4F-063CED65F929}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{CE0F536B-1BE8-4406-9A29-B0F6B7A8A02A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FC17C26-28B9-453F-AEB9-758BBFE2EC7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC17C26-28B9-453F-AEB9-758BBFE2EC7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC17C26-28B9-453F-AEB9-758BBFE2EC7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC17C26-28B9-453F-AEB9-758BBFE2EC7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9978BA6-D3D0-448B-9D64-857ADBB8E899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9978BA6-D3D0-448B-9D64-857ADBB8E899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9978BA6-D3D0-448B-9D64-857ADBB8E899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9978BA6-D3D0-448B-9D64-857ADBB8E899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29614202-47D9-46BE-A627-FE68904E36B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29614202-47D9-46BE-A627-FE68904E36B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29614202-47D9-46BE-A627-FE68904E36B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29614202-47D9-46BE-A627-FE68904E36B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96C50F5-7C48-4658-B775-C5D8431C9045}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9E8A5304-4053-4BAF-AC4F-063CED65F929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8A5304-4053-4BAF-AC4F-063CED65F929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8A5304-4053-4BAF-AC4F-063CED65F929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8A5304-4053-4BAF-AC4F-063CED65F929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0F536B-1BE8-4406-9A29-B0F6B7A8A02A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0F536B-1BE8-4406-9A29-B0F6B7A8A02A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0F536B-1BE8-4406-9A29-B0F6B7A8A02A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0F536B-1BE8-4406-9A29-B0F6B7A8A02A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7F1AA9A-5527-4D17-BCA9-8F68F4FB40D4}
+	EndGlobalSection
+EndGlobal
