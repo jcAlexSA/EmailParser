@@ -84,11 +84,7 @@ namespace EmailParsersFactory.Managers
                             false);
                     }
 
-                    using (StreamWriter streamWriterReader = new StreamWriter(
-                        File.Create(string.Concat(directoryToDownload, emailFolder, GetValidFileName(id, content.Subject)))))
-                    {
-                        WriteMessageToTheFile(content, streamWriterReader, id);
-                    }
+                    WriteMessageToTheFile(content, id, string.Concat(directoryToDownload, emailFolder));
                 }
 
                 client.Disconnect(true);
@@ -99,15 +95,19 @@ namespace EmailParsersFactory.Managers
         /// <summary>
         /// Writes the message to the file.
         /// </summary>
-        /// <param name="content">The content.</param>
-        /// <param name="sw">The stream writer.</param>
-        /// <param name="id">The identifier of email.</param>
-        private static void WriteMessageToTheFile(MimeKit.MimeMessage content, StreamWriter sw, UniqueId id)
+        /// <param name="content">Content of the message.</param>
+        /// <param name="id">Unique id of the message.</param>
+        /// <param name="directoryToWrite">Directory to write the message.</param>
+        private static void WriteMessageToTheFile(MimeKit.MimeMessage content, UniqueId id, string directoryToWrite)
         {
-            sw.WriteLine(content.Subject);
-            sw.WriteLine(content.From);
-            sw.WriteLine(id);
-            sw.WriteLine(content.HtmlBody);
+            using (StreamWriter sw = new StreamWriter(
+                        File.Create(string.Concat(directoryToWrite, GetValidFileName(id, content.Subject)))))
+            {
+                sw.WriteLine(content.Subject);
+                sw.WriteLine(content.From);
+                sw.WriteLine(id);
+                sw.WriteLine(content.HtmlBody);
+            }
         }
 
         /// <summary>

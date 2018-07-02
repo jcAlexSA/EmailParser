@@ -29,13 +29,18 @@ namespace EmailReader
             var articlesManager = container.Resolve<IArticlesManager>();
 
             var credential = new NetworkCredential("news.fake.aggregator@gmail.com", "fake.news");
-            string pathToDownload = @"D:\Projects\EmailParsersFactory\EmailParsersFactory\bin\Debug\Emails\";
+
+            string pathToDownload = string.Concat(Environment.CurrentDirectory, @"\Emails\");
+            if(!Directory.Exists(pathToDownload))
+            {
+                Directory.CreateDirectory(pathToDownload);
+            }
 
             // Download promotion's emails.
             var emailsDownloader = new EmailsDownloader(credential);
             emailsDownloader.Download(pathToDownload);
 
-            // Get download emails.
+            // Get downloaded emails.
             var files = Directory.GetFiles(pathToDownload, "*.*", SearchOption.AllDirectories);
 
             // Read emails and write content to DB.
