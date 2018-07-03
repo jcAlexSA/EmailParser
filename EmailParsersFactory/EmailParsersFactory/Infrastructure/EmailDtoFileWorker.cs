@@ -30,12 +30,19 @@ namespace EmailParsersFactory.Infrastructure
         /// </summary>
         /// <param name="sw">The stream writer.</param>
         /// <param name="dto">The email dto.</param>
-        public static void WriteEmailDto(StreamWriter sw, EmailDto dto)
+        public static async void WriteEmailDto(StreamWriter sw, EmailDto dto)
         {
-            sw.WriteLine(dto.Subject);
-            sw.WriteLine(dto.From);
-            sw.WriteLine(dto.MessageId);
-            sw.WriteLine(dto.Body);
+            var sb = new System.Text.StringBuilder(dto.Subject);
+            sb.AppendLine(dto.From);
+            sb.AppendLine(dto.MessageId.ToString());
+            sb.AppendLine(dto.Body);
+
+            await sw.WriteLineAsync(sb.ToString());
+            await sw.FlushAsync();
+            //sw.WriteLine(dto.Subject);
+            //sw.WriteLine(dto.From);
+            //sw.WriteLine(dto.MessageId);
+            //sw.WriteLine(dto.Body);
         }
     }
 }

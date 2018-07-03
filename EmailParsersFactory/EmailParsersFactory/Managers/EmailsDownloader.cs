@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Core.Interfaces.Configurations;
 using Core.Models.Dtos;
 using EmailParsersFactory.Infrastructure;
@@ -54,6 +55,9 @@ namespace EmailParsersFactory.Managers
                 var uniqueIdInbox = folder.Search(SearchQuery.HasGMailLabel("Inbox"));
                 var commonId = uniqueIdInbox.Intersect(uniqueIdPromotions).ToList();    // Get commond ids
 
+                Task[] tasks = new Task[commonId.Count];
+                int taskIterator = 0;
+
                 foreach (var id in commonId)
                 {
                     var content = folder.GetMessage(id);
@@ -77,33 +81,55 @@ namespace EmailParsersFactory.Managers
 
                     CreateDirectoryIfNotExist(directoryToDownload + emailFolder);
 
-                    if (settingMessageLabel != null)
+                    // if (settingMessageLabel != null)
+                    // {
+                    //    folder.SetLabels(
+                    //        id,
+                    //        new System.Collections.Generic.List<string> { settingMessageLabel },
+                    //        false);
+                    // }
+
+                    tasks[taskIterator] = new Task(() =>
                     {
-                        folder.SetLabels(
+                        WriteToFileProcess(
                             id,
-                            new System.Collections.Generic.List<string> { settingMessageLabel },
-                            false);
-                    }
-
-                    using (StreamWriter sw = new StreamWriter(
-                                File.Create(string.Concat(
-                                    directoryToDownload, emailFolder, GetValidFileName(id, content.Subject)))))
-                    {
-                        var emailDto = new EmailDto
-                        {
-                            Subject = content.Subject,
-                            From = content.From.ToString(),
-                            MessageId = (int)id.Id,
-                            Body = content.HtmlBody
-                        };
-
-                        EmailDtoFileWorker.WriteEmailDto(sw, emailDto);
-                    }
+                            string.Concat(directoryToDownload, emailFolder, GetValidFileName(id, content.Subject)),
+                            content);
+                    });
+                    tasks[taskIterator++].Start();
                 }
+
+                Task.WaitAll(tasks);
 
                 client.Disconnect(true);
                 Console.WriteLine("Message Count: {0} ", commonId.Count);
             }
+        }
+
+        /// <summary>
+        /// Writes to file async process.
+        /// </summary>
+        /// <param name="id">The identifier of message.</param>
+        /// <param name="file">The file where write message.</param>
+        /// <param name="content">The content of message.</param>
+        /// <returns>Completed task.</returns>
+        private static Task WriteToFileProcess(UniqueId id, string file, MimeKit.MimeMessage content)
+        {
+            return Task.Run(async () =>
+            {
+                using (StreamWriter sw = new StreamWriter(File.Create(file)))
+                {
+                    var emailDto = new EmailDto
+                    {
+                        Subject = content.Subject,
+                        From = content.From.ToString(),
+                        MessageId = (int)id.Id,
+                        Body = content.HtmlBody
+                    };
+
+                    await Task.Run(() => { EmailDtoFileWorker.WriteEmailDto(sw, emailDto); });
+                }
+            });
         }
 
         /// <summary>
