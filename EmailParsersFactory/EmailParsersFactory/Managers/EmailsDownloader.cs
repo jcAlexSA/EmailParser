@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
+using Core.Interfaces.Configurations;
 using Core.Models.Dtos;
 using EmailParsersFactory.Infrastructure;
 using MailKit;
@@ -17,17 +17,17 @@ namespace EmailParsersFactory.Managers
     public class EmailsDownloader
     {
         /// <summary>
-        /// The credential for imap connection.
+        /// The imap configuration.
         /// </summary>
-        private readonly NetworkCredential credential;
+        private readonly IImapConfiguration imapConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailsDownloader"/> class.
         /// </summary>
-        /// <param name="credential">The credential.</param>
-        public EmailsDownloader(string login, string password)
+        /// <param name="imapConfiguration">Configuration for imap processing.</param>
+        public EmailsDownloader(IImapConfiguration imapConfiguration)
         {
-            this.credential = new NetworkCredential(login, password);
+            this.imapConfiguration = imapConfiguration;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace EmailParsersFactory.Managers
                 Uri uri = new Uri("imaps://imap.gmail.com");
 
                 client.Connect(uri);
-                client.Authenticate(this.credential);
+                client.Authenticate(this.imapConfiguration.Login, this.imapConfiguration.Password);
 
                 IMailFolder folder = client.GetFolder("[Gmail]/All Mail");
                 folder.Open(FolderAccess.ReadWrite);

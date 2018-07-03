@@ -40,7 +40,7 @@ namespace EmailParser.Managers.Factory
             string pattern = @"(?("")("".+?(?<!\\)\""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`{}|~\w])*)(?<=[0-9a-z])@))(?([)([(\d{1,3}.){3}\d{1,3}])|(([0-9a-z][-0-9a-z]*[0-9a-z]*.)+[a-z0-9][-a-z0-9]{0,22}[a-z0-9]))";
             Regex regex = new Regex(pattern);
 
-            if(regex.IsMatch(emailDto.From))
+            if (regex.IsMatch(emailDto.From))
             {
                 var result = regex.Match(emailDto.From);
                 return result.Value.ToString();

@@ -1,17 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
+using Core.Interfaces.Configurations;
 
 namespace EmailParsersFactory.Infrastructure
 {
-    public class ApplicationConfiguration
+    /// <summary>
+    /// Configuration of the application.
+    /// </summary>
+    /// <seealso cref="Core.Interfaces.IImapConfiguration" />
+    public class ApplicationConfiguration : IImapConfiguration, IDirectoryDowloadConfiguration
     {
-        public string Login { get; } = "news.fake.aggregator@gmail.com";
+        /// <summary>
+        /// Gets the login.
+        /// </summary>
+        /// <value>
+        /// The login.
+        /// </value>
+        public string Login { get; } = ConfigurationManager.AppSettings["login"];
 
-        public string Password { get; } = "fake.news";
+        /// <summary>
+        /// Gets the password.
+        /// </summary>
+        /// <value>
+        /// The password.
+        /// </value>
+        public string Password { get; } = ConfigurationManager.AppSettings["password"];
 
-        //TODO: set here path to directory where download file.
+        /// <summary>
+        /// Gets the directory to download emails.
+        /// </summary>
+        /// <value>
+        /// The directory.
+        /// </value>
+        public string Directory { get; } = string.Concat(System.Environment.CurrentDirectory, @"\Emails\");
     }
 }

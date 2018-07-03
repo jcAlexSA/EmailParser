@@ -8,6 +8,9 @@ using Core.Models.Dtos;
 
 namespace EmailParsersFactory.Infrastructure
 {
+    /// <summary>
+    /// Mapper class.
+    /// </summary>
     public class Mapper
     {
         /// <summary>

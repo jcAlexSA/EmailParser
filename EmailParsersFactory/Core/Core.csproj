@@ -55,7 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Configurations\IDirectoryDowloadConfiguration.cs" />
     <Compile Include="Interfaces\DataContext\IDataContext.cs" />
+    <Compile Include="Interfaces\Configurations\IImapConfiguration.cs" />
     <Compile Include="Interfaces\ITask.cs" />
     <Compile Include="Interfaces\Managers\IParser.cs" />
     <Compile Include="Interfaces\Managers\IArticlesManager.cs" />

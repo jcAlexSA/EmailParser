@@ -20,7 +20,7 @@ namespace EmailParsersFactory.Tasks.Factory
             {
                 return container.ResolveNamed<ITask>(command);
             }
-            catch (Autofac.Core.Registration.ComponentNotRegisteredException ex)
+            catch (Autofac.Core.Registration.ComponentNotRegisteredException)
             {
                 return null;
             }

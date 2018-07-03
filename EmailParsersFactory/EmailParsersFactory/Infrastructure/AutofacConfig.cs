@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Autofac;
-using Autofac.Features.Metadata;
+using Autofac.Core;
 using Core.Interfaces;
 using Core.Interfaces.DataContext;
 using Core.Interfaces.Managers;
@@ -45,7 +46,10 @@ namespace EmailReader.Infrastructure
             // Managers.
             builder.RegisterType<ArticlesManager>().As<IArticlesManager>();
 
-            var appConfig = new ApplicationConfiguration();
+            // Application Configuration.
+            builder.RegisterType<ApplicationConfiguration>()
+                .AsImplementedInterfaces()
+                .InstancePerLifetimeScope();
 
             // Tasks.
             builder.RegisterType<EmailDownloadTask>().Named<ITask>("download");
